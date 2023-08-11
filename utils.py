@@ -10,6 +10,7 @@ import math
 from scipy.spatial import distance
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 
 class Node:        
     def __init__(self, w, index):
