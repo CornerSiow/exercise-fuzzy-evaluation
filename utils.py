@@ -6,6 +6,9 @@ Created on Sat Feb  4 14:09:31 2023
 @author: Corner Siow
 """
 
+import math
+from scipy.spatial import distance
+
 class Node:        
     def __init__(self, w, index):
         self.w = w
@@ -28,11 +31,13 @@ class Node:
         for node in self.neighbourNodes:
             node.updateWeight(d, learning_rate)
 
+
+
 def hasNearestNode(nodeList, point):    
     bestNode = None
     bestDist = math.inf
     for node in nodeList:
-        dist = cosine(node.w, point)
+        dist = distance.cosine(node.w, point)
         if dist <= c_dist and dist < bestDist:
             bestDist = dist
             bestNode = node
