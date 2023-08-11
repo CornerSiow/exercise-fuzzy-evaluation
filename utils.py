@@ -8,6 +8,8 @@ Created on Sat Feb  4 14:09:31 2023
 
 import math
 from scipy.spatial import distance
+import matplotlib
+import matplotlib.pyplot as plt
 
 class Node:        
     def __init__(self, w, index):
@@ -47,3 +49,56 @@ def hasNearestNode(nodeList, point, threshold):
             bestNode = node
             
     return bestNode
+
+
+def displayGraph(nodeList, features):
+    plt.figure()
+    plt.scatter(features[:,0], features[:,1])
+    for node in nodeList:
+        for n in node.neighbourNodes:     
+            plt.plot([node.w[0],n.w[0]], [node.w[1],n.w[1]])
+        plt.scatter(node.w[0], node.w[1])  
+        plt.annotate(node.index, (node.w[0], node.w[1]))
+    plt.show()
+
+def searchChange(nodeList, features, display = False):
+    requiredChange = {}
+    if display:
+      plt.figure()
+      plt.scatter(features[:,0], features[:,1])
+    for nodeIndex, node in enumerate(nodeList):
+        directionList = []    
+        for n in node.fromNodes:                    
+            direction = (node.w - n.w)
+            direction /= np.linalg.norm(direction)    
+            directionList.append(direction)
+        
+        avgDirection = np.zeros(len(node.w))
+        for d in directionList:
+            avgDirection += d
+            point = d  + node.w
+            if display:  
+              plt.plot([node.w[0], point[0]],[node.w[1], point[1]],c="#0000FF")
+        avgDirection /= len(directionList)
+        
+        targetPoint = avgDirection  + node.w      
+        if display:  
+          plt.scatter(targetPoint[0], targetPoint[1], marker='x', c="#FF0000")              
+          plt.scatter(node.w[0], node.w[1], marker='*', c="#FFFF00")       
+    
+        bestNode = None
+        bestDist = math.inf
+        for i, point in enumerate(features):
+            # if isWithinDirection(directionList, point - node.w):         
+                # if cosine(point, node.w) < c_dist:
+                    dist = distance.euclidean(point, targetPoint)
+                    if dist < bestDist:
+                        bestDist = dist
+                        bestNode = Node(point,i)
+        requiredChange[nodeIndex] = bestNode
+        
+    for k in requiredChange:
+        node = requiredChange[k]
+        nodeList[k].w = node.w
+        nodeList[k].index = node.index
+    return nodeList
