@@ -10,3 +10,14 @@ The process:
 
 The details of the algorithm can found in this <a href="https://colab.research.google.com/drive/1MHAPZS9x6fQCE3g68yHw6ZAo7Cj6bCMD?usp=sharing">colab</a> link.
 
+## Citing PySlowFast
+If you find this project useful in your research, please use the following BibTeX entry for citation.
+```BibTeX
+@misc{siow2023exercise,
+  author =       {SIOW CHYAN ZHENG},
+  title =        {ExerciseFuzzyEvaluation},
+  howpublished = {\url{https://github.com/CornerSiow/exercise-fuzzy-evaluation}},
+  year =         {2023}
+}
+```
+
