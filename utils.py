@@ -219,7 +219,7 @@ def generateSimilarityFuzzyMembership(node:Node, features, threshold):
 
 def getCurrentPoseIndex(point, node_list, fuzzy_members):
   bestIndex = None
-  bestScore = 0
+  bestScore =  -math.inf
   for i in range(len(fuzzy_members)):
     membership = fuzzy_members[i]
     node = node_list[i]
