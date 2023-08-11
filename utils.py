@@ -284,7 +284,7 @@ def obtainsMembershipScores(features, node_list,fuzzy_members):
     if mdScore > hiScore:
       frameCount += 1
     if loScore > mdScore:
-      if maxScore[0] < scoreForEachPose[currentPoseIndex] or scoreForEachPose[currentPoseIndex] == 0:
+      if maxScore[0] > scoreForEachPose[currentPoseIndex] or scoreForEachPose[currentPoseIndex] == 0:
         scoreForEachPose[currentPoseIndex] = maxScore[0]
       currentPoseIndex = getCurrentPoseIndex(point,node_list,fuzzy_members)
       temporalList.append(currentPoseIndex)
@@ -292,7 +292,7 @@ def obtainsMembershipScores(features, node_list,fuzzy_members):
       maxScore = [0,0,0]
       frameCount = 0
   # for the last node:
-  if maxScore[0] < scoreForEachPose[currentPoseIndex] or scoreForEachPose[currentPoseIndex] == 0:
+  if maxScore[0] > scoreForEachPose[currentPoseIndex] or scoreForEachPose[currentPoseIndex] == 0:
         scoreForEachPose[currentPoseIndex] = maxScore[0]
   speedList = np.asarray(speedList)
   temporalList = np.asarray(temporalList)
