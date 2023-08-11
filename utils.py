@@ -217,3 +217,42 @@ def generateSimilarityFuzzyMembership(node:Node, features, threshold):
     
     return x_similarity, similarity_hi, similarity_md, similarity_lo
 
+def getCurrentPoseIndex(point, node_list, fuzzy_members):
+  bestIndex = None
+  bestScore = 0
+  for i in range(len(fuzzy_members)):
+    membership = fuzzy_members[i]
+    node = node_list[i]
+    dist = distance.cityblock(node.w, point)
+    dist = min(dist, max(membership['x_axis']))
+    score = fuzz.interp_membership(membership['x_axis'], membership['m_hi'], dist)
+    if score > bestScore:
+      bestScore = score
+      bestIndex = i
+  return bestIndex
+
+
+
+def getCenterScore(m1,m2,m3):
+    rulesShape = [[0,0,80],[0,80,100],[80,100,100]]
+    ruleScore = [m1,m2,m3]
+    
+    sumTemp = [0,0]
+    for i, (a1, a2, a3) in enumerate(rulesShape):
+        M = ruleScore[i]
+        LA = (M * M * a2 - M * M * a1)/2
+        LC = (3*a1+2*M*a2-2*M*a1)/3
+            
+        MA = M*a3-M*M*a3-M*a1+a1*M*M
+        MC = (a1+2*M*a2-M*a1+a3-M*a3)/2
+        
+        RA = (M*M*a3 - M*M*a2)/2
+        RC = ((3*a3-2*M*a3+2*M*a2))/3
+        # print(LA,MA,RA)
+            
+        sumTemp[0] += LC * LA
+        sumTemp[0] += MC * MA
+        sumTemp[0] += RC * RA
+        sumTemp[1] += LA + MA + RA
+    
+    return sumTemp[0]/sumTemp[1]
