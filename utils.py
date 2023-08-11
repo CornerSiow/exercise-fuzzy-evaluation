@@ -113,6 +113,7 @@ def searchChange(nodeList, features, threshold, display = False):
     return nodeList
 
 def getFeatures(data):
+    features = []
     for v in data:
       temp = []
       t = [i for i in range(33)]
@@ -124,4 +125,5 @@ def getFeatures(data):
       features.append(temp)
     features = np.asarray(features)
     return features
+
 
