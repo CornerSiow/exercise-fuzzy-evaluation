@@ -52,8 +52,11 @@ def hasNearestNode(nodeList, point, threshold):
     return bestNode
 
 
-def displayGraph(nodeList, features):
+def displayGraph(nodeList, features, title=''):
     plt.figure()
+    plt.title(title)
+    plt.xlabel('hand position x')
+    plt.ylabel('hand position y')
     plt.scatter(features[:,0], features[:,1])
     for node in nodeList:
         for n in node.neighbourNodes:     
@@ -62,7 +65,7 @@ def displayGraph(nodeList, features):
         plt.annotate(node.index, (node.w[0], node.w[1]))
     plt.show()
 
-def searchChange(nodeList, features, display = False):
+def searchChange(nodeList, features, threshold, display = False):
     requiredChange = {}
     if display:
       plt.figure()
@@ -90,8 +93,8 @@ def searchChange(nodeList, features, display = False):
         bestNode = None
         bestDist = math.inf
         for i, point in enumerate(features):
-            # if isWithinDirection(directionList, point - node.w):         
-                # if cosine(point, node.w) < c_dist:
+            if isWithinDirection(directionList, point - node.w):         
+                if distance.cosine(point, node.w) < threshold:
                     dist = distance.euclidean(point, targetPoint)
                     if dist < bestDist:
                         bestDist = dist
