@@ -51,7 +51,12 @@ def hasNearestNode(nodeList, point, threshold):
             
     return bestNode
 
-
+def withinDirection(directionList, point):
+    for direction in directionList:        
+        if np.dot(direction, point) < 0:
+            return False
+    return True
+    
 def displayGraph(nodeList, features, title=''):
     plt.figure()
     plt.title(title)
