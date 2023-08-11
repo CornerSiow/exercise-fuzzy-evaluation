@@ -286,7 +286,7 @@ def obtainsMembershipScores(features, node_list,fuzzy_members):
     if loScore > mdScore:
       if maxScore[0] < scoreForEachPose[currentPoseIndex] or scoreForEachPose[currentPoseIndex] == 0:
         scoreForEachPose[currentPoseIndex] = maxScore[0]
-      currentPoseIndex = getCurrentPoseIndex(point,all_nodes,fuzzy_members)
+      currentPoseIndex = getCurrentPoseIndex(point,node_list,fuzzy_members)
       temporalList.append(currentPoseIndex)
       speedList.append(frameCount)
       maxScore = [0,0,0]
