@@ -27,3 +27,14 @@ class Node:
     def updateNeighboardWeight(self, d, learning_rate):
         for node in self.neighbourNodes:
             node.updateWeight(d, learning_rate)
+
+def hasNearestNode(nodeList, point):    
+    bestNode = None
+    bestDist = math.inf
+    for node in nodeList:
+        dist = cosine(node.w, point)
+        if dist <= c_dist and dist < bestDist:
+            bestDist = dist
+            bestNode = node
+            
+    return bestNode
