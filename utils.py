@@ -33,12 +33,12 @@ class Node:
 
 
 
-def hasNearestNode(nodeList, point):    
+def hasNearestNode(nodeList, point, threshold):    
     bestNode = None
     bestDist = math.inf
     for node in nodeList:
         dist = distance.cosine(node.w, point)
-        if dist <= c_dist and dist < bestDist:
+        if dist <= threshold and dist < bestDist:
             bestDist = dist
             bestNode = node
             
