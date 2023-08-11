@@ -8,3 +8,5 @@ The process:
 4) Create a temporal fuzzy transition memberships based on these essential poese.
 5) Perform defuzzification into the evaluation score.
 
+The details of the algorithm can found in this <a href="https://colab.research.google.com/drive/1MHAPZS9x6fQCE3g68yHw6ZAo7Cj6bCMD?usp=sharing">colab</a> link.
+
