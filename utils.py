@@ -111,3 +111,17 @@ def searchChange(nodeList, features, threshold, display = False):
         nodeList[k].w = node.w
         nodeList[k].index = node.index
     return nodeList
+
+def getFeatures(data):
+    for v in data:
+      temp = []
+      t = [i for i in range(33)]
+      # try to show the right hand for the first index
+      t[0] = 15
+      t[15] = 0
+      for i in t:
+        temp = temp + [v[i].x, v[i].y]
+      features.append(temp)
+    features = np.asarray(features)
+    return features
+
