@@ -31,7 +31,11 @@ class Node:
         for node in self.neighbourNodes:
             node.updateWeight(d, learning_rate)
 
-
+def linkNode(fromA:Node, toB:Node):
+    fromA.addNeighbour(toB)
+    toB.addNeighbour(fromA)
+    fromA.addToNode(toB)
+    toB.addFromNode(fromA)
 
 def hasNearestNode(nodeList, point, threshold):    
     bestNode = None
