@@ -51,7 +51,7 @@ def hasNearestNode(nodeList, point, threshold):
             
     return bestNode
 
-def withinDirection(directionList, point):
+def isWithinDirection(directionList, point):
     for direction in directionList:        
         if np.dot(direction, point) < 0:
             return False
