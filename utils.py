@@ -256,3 +256,45 @@ def getCenterScore(m1,m2,m3):
         sumTemp[1] += LA + MA + RA
     
     return sumTemp[0]/sumTemp[1]
+
+def obtainsMembershipScores(features, node_list,fuzzy_members):
+  currentPoseIndex = getCurrentPoseIndex(features[0],node_list,fuzzy_members)
+  temporalList = [currentPoseIndex]
+  scoreForEachPose = [0] * len(node_list)
+  # hi, md, lo
+  maxScore = [0,0,0]
+  # for speed within each node
+  frameCount = 0
+  speedList = []
+  for frame, point in enumerate(features):
+    membership = fuzzy_members[currentPoseIndex]
+    node = node_list[currentPoseIndex]
+
+    dist = distance.cityblock(node.w, point)
+    dist = min(dist, max(membership['x_axis']))
+    hiScore = fuzz.interp_membership(membership['x_axis'], membership['m_hi'], dist)
+    mdScore = fuzz.interp_membership(membership['x_axis'], membership['m_md'], dist)
+    loScore = fuzz.interp_membership(membership['x_axis'], membership['m_lo'], dist)
+    if hiScore > maxScore[0]:
+      maxScore[0] = hiScore
+    if mdScore > maxScore[1]:
+      maxScore[1] = mdScore
+    if loScore > maxScore[2]:
+      maxScore[2] = loScore
+    if mdScore > hiScore:
+      frameCount += 1
+    if loScore > mdScore:
+      if maxScore[0] < scoreForEachPose[currentPoseIndex] or scoreForEachPose[currentPoseIndex] == 0:
+        scoreForEachPose[currentPoseIndex] = maxScore[0]
+      currentPoseIndex = getCurrentPoseIndex(point,all_nodes,fuzzy_members)
+      temporalList.append(currentPoseIndex)
+      speedList.append(frameCount)
+      maxScore = [0,0,0]
+      frameCount = 0
+  # for the last node:
+  if maxScore[0] < scoreForEachPose[currentPoseIndex] or scoreForEachPose[currentPoseIndex] == 0:
+        scoreForEachPose[currentPoseIndex] = maxScore[0]
+  speedList = np.asarray(speedList)
+  temporalList = np.asarray(temporalList)
+  scoreForEachPose = np.asarray(scoreForEachPose)
+  return temporalList, speedList, scoreForEachPose
