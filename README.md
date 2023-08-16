@@ -13,11 +13,12 @@ The details of the algorithm can found in this <a href="https://colab.research.g
 ## Citing Exercise Fuzzy Evaluation
 If you find this project useful in your research, please use the following BibTeX entry for citation.
 ```BibTeX
-@misc{siow2023exercise,
-  author =       {SIOW CHYAN ZHENG},
-  title =        {ExerciseFuzzyEvaluation},
-  howpublished = {\url{https://github.com/CornerSiow/exercise-fuzzy-evaluation}},
-  year =         {2023}
+@inproceedings{siow2023exercise,
+  title={Evaluating Simple Exercises with a Fuzzy System Based on Human Skeleton Poses},
+  author={Siow, ChyanZheng and Chin, WeiHong and Kubota, Naoyuki},
+  booktitle={2023 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE)},
+  year={2023},
+  organization={IEEE}
 }
 ```
 
